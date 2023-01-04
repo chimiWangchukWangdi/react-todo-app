@@ -1,0 +1,24 @@
+.nav {
+    position: absolute;
+    left: 0;
+    top: 96px;
+    width: 300px;
+    height: 100vh;
+    background-color: transparent;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    gap: 10px;
+    background-color: #FFFFFF;
+}
+
+.nav__list {
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 12px 0;
+}
