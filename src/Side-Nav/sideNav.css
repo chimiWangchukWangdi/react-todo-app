@@ -22,3 +22,11 @@
     font-size: 20px;
     padding: 12px 0;
 }
+
+header{
+    padding: 25px 20px;
+    background-color: hsl(210, 12%, 15%);
+    color: white;
+    font-size: 28px;
+    font-family: cursive;
+  }

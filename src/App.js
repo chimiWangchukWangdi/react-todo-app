@@ -1,13 +1,14 @@
+import React from "react";
 import './App.css';
-import SideNav from './side-nav/side-nav';
-import TaskManager from './List/TaskManager';
+import SideNav from './Side-Nav/SideNav';
+import { Outlet } from 'react-router-dom';
+import AppRoute from './AppRoute';
 
 function App() {
   
   return (
     <div className='app'>
-      <SideNav />
-      <TaskManager />
+      <AppRoute />
     </div>
   );
 }
