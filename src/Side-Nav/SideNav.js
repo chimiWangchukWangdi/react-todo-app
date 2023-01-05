@@ -6,11 +6,10 @@ function SideNav() {
     return (
         <div>
             <ul className="nav">
-                <Link to="/"><li className="nav__list">Dashboard</li></Link>
-                <Link to="TaskManager"><li className="nav__list">List</li></Link>
-                <Link to="Profile"><li className="nav__list">Profile</li></Link>
+                <Link to="dashboard"><li className="nav__list">Dashboard</li></Link>
+                <Link to="list"><li className="nav__list">List</li></Link>
+                <Link to="profile"><li className="nav__list">Profile</li></Link>
             </ul>
-            <div></div>
         </div>
     );
 }

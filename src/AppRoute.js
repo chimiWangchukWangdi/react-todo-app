@@ -6,18 +6,14 @@ import SideNav from "./Side-Nav/SideNav";
 
 export default function AppRoute() {
     return (
-        <>
         <BrowserRouter>
             <SideNav />
             <Routes>
-                {/* <Route path="/" element={<SideNav />} /> */}
-                {/* <Route index element={<TaskManager />} /> */}
-                <Route path="TaskManager" element={<TaskManager />} />
-                <Route path="Profile" element={<Profile />} />
-                <Route path="Dashboard" element={<Dashboard />} />
-                <Route path="*" element={<Profile />} />
+                <Route path="list" element={<TaskManager />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="*" element={<TaskManager />} />
             </Routes>
-        </BrowserRouter></>
-        
-    )
+        </BrowserRouter>
+    );
 }

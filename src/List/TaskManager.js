@@ -23,7 +23,7 @@ function TaskManager() {
 
   return (
     <div className='taskManager'>
-      <header>Task Manager</header>
+      <header>List</header>
       <div className='taskManager__container'>
         <button 
           onClick={() => setOpenAddModal(true)}>
@@ -31,14 +31,14 @@ function TaskManager() {
         </button>
         <div className='taskManager__tasks'>
         {tasks.map((task) => (
-  <Task
-    id={task.id}
-    key={task.id}
-    completed={task.data.completed}
-    title={task.data.title} 
-    description={task.data.description}
-  />
-))}
+            <Task
+              id={task.id}
+              key={task.id}
+              completed={task.data.completed}
+              title={task.data.title} 
+              description={task.data.description}
+            />
+          ))}
         </div>
       </div>
 
