@@ -2,9 +2,9 @@ import './dashboard.css';
 
 const Dashboard = () => {
     return (
-      <div>
-        <header>Dashboard</header>
-      </div>
+        <div>
+          <header>Dashboard</header>
+        </div>
     );
   };
   

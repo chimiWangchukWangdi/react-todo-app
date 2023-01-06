@@ -30,7 +30,7 @@ function TaskManager() {
           Add task +
         </button>
         <div className='taskManager__tasks'>
-        {tasks.map((task) => (
+          {tasks.map((task) => (
             <Task
               id={task.id}
               key={task.id}
