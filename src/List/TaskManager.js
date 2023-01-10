@@ -1,6 +1,6 @@
 import './taskManager.css';
 import Task from './Task';
-import AddTask from './AddTask';
+import TaskForm from './TaskForm';
 import {useState, useEffect} from 'react';
 import {collection, query, orderBy, onSnapshot} from "firebase/firestore";
 import {db} from './firebase';
@@ -43,7 +43,7 @@ function TaskManager() {
       </div>
 
       {openAddModal &&
-        <AddTask onClose={() => setOpenAddModal(false)} open={openAddModal}/>
+        <TaskForm open={openAddModal} onClose={() => setOpenAddModal(false)}  />
       }
 
     </div>
