@@ -1,22 +1,17 @@
 import Modal from "./Modal";
-import {useState} from 'react';
 import './addTask.css';
 import {db} from './firebase';
 import {collection, addDoc, Timestamp} from 'firebase/firestore';
-
+import { Form, Field } from 'react-final-form';
 
 function AddTask({onClose, open}) {
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-
   /* function to add new task to firestore */
   const handleSubmit = async (e) => {
-    e.preventDefault()
     try {
       await addDoc(collection(db, 'tasks'), {
-        title: title,
-        description: description,
+        title: e.title,
+        description: e.description,
         completed: false,
         created: Timestamp.now()
       })
@@ -28,19 +23,34 @@ function AddTask({onClose, open}) {
 
   return (
     <Modal modalLable='Add Task' onClose={onClose} open={open}>
-      <form onSubmit={handleSubmit} className='addTask' name='addTask'>
-        <input 
-          type='text' 
-          name='title' 
-          onChange={(e) => setTitle(e.target.value.toUpperCase())} 
-          value={title}
-          placeholder='Enter title'/>
-        <textarea 
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder='Enter task decription'
-          value={description}></textarea>
-        <button type='submit'>Done</button>
-      </form> 
+      <Form
+        onSubmit={handleSubmit}
+        render={({ handleSubmit, meta, submitting, values }) => (
+        <form onSubmit={handleSubmit} className='addTask' name='addTask'>
+          <Field name='title' validate={value => value? undefined : 'Required'}>
+            {({ input, meta }) => (
+              <div className="addTask input">
+                <input {...input} type="text" placeholder="Enter title" />
+                {meta.touched && meta.invalid && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field> 
+          <Field name="description" validate={value => value? undefined : 'Required'}>
+            {({ input, meta }) => (
+              <div className="addTask input">
+                <textarea {...input} placeholder="Enter task description" />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <div className="addTask button">
+            <button type="submit" disabled={submitting}>
+              Done
+            </button>
+          </div>
+        </form> 
+        )}
+      />
     </Modal>
   )
 }
