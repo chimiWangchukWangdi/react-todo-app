@@ -1,21 +1,26 @@
 import Modal from "./Modal";
 import './taskForm.css';
 import { collection, addDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
-import {db} from './firebase';
+import { db } from './firebase';
 import { Form, Field } from 'react-final-form';
+import * as actions from '../state/action';
+import { useDispatch } from "react-redux";
 
 const TaskForm = ({ open, onClose, id, toEditTitle, toEditDescription }) => {
+  const dispatch = useDispatch();
 
   /* function to handle submitting the form */
   const handleSubmit = async values => {
     try {
       /* if initialValues are present, update the task, otherwise add new task */
       if (id) {
+        dispatch(actions.editTask({...values, id}))
         await updateDoc(doc(db, 'tasks', id), {
           title: values.title,
           description: values.description,
         });
       } else {
+        dispatch(actions.addTask({...values, id: Math.random()}))
         await addDoc(collection(db, 'tasks'), {
           title: values.title,
           description: values.description,

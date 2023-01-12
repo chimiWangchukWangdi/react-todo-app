@@ -4,11 +4,13 @@ import TaskItem from './TaskItem';
 import TaskForm from './TaskForm';
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import {db} from './firebase';
+import { useDispatch } from 'react-redux';
+import * as actions from '../state/action'
 
 function Task({id, title, description, completed}) {
-
   const [checked, setChecked] = useState(completed)
   const [open, setOpen] = useState({edit:false, view:false})
+  const dispatch = useDispatch()
 
   const handleClose = () => {
     setOpen({edit:false, view:false})
@@ -27,9 +29,10 @@ function Task({id, title, description, completed}) {
   }
 
    /* function to delete a document from firstore */ 
-   const handleDelete = async () => {
-    const taskDocRef = doc(db, 'tasks', id)
+   const handleDelete = async (taskId) => {
+     const taskDocRef = doc(db, 'tasks', id)
     try{
+      dispatch(actions.deleteTask(taskId))
       await deleteDoc(taskDocRef)
     } catch (err) {
       alert(err)
@@ -61,7 +64,7 @@ function Task({id, title, description, completed}) {
               onClick={() => setOpen({...open, edit: true})}>
               Edit
             </button>
-            <button className='task__deleteButton' onClick={handleDelete}>Delete</button>
+            <button className='task__deleteButton' onClick={() => handleDelete(id)}>Delete</button>
           </div>
           <button 
             onClick={() => setOpen({...open, view: true})}>

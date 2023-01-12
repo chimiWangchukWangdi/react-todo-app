@@ -1,23 +1,32 @@
 import './taskManager.css';
 import Task from './Task';
 import TaskForm from './TaskForm';
-import {useState, useEffect} from 'react';
-import {collection, query, orderBy, onSnapshot} from "firebase/firestore";
-import {db} from './firebase';
+import { useState, useEffect } from 'react';
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { db} from './firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import * as selectors from '../state/selector';
+import * as actions from '../state/action';
+
+const getQuery = () => {
+  return query(collection(db, 'tasks'), orderBy('created', 'desc'))
+}
 
 function TaskManager() {
 
   const [openAddModal, setOpenAddModal] = useState(false)
   const [tasks, setTasks] = useState([])
-
+  const taskList = useSelector(selectors.selectTaskList);
+  const dispatch = useDispatch();
+  
   /* function to get all tasks from firestore in realtime */ 
   useEffect(() => {
-    const q = query(collection(db, 'tasks'), orderBy('created', 'desc'))
-    onSnapshot(q, (querySnapshot) => {
-      setTasks(querySnapshot.docs.map(doc => ({
+    onSnapshot(getQuery(), (querySnapshot) => {
+      const result = querySnapshot.docs.map(doc => ({
         id: doc.id,
-        data: doc.data()
-      })))
+        ...doc.data()
+      }))
+      dispatch(actions.setAllTask(result))
     })
   },[])
 
@@ -30,13 +39,13 @@ function TaskManager() {
           Add task +
         </button>
         <div className='taskManager__tasks'>
-          {tasks.map((task) => (
+          {taskList.length && taskList.map((task, index) => (
             <Task
               id={task.id}
-              key={task.id}
-              completed={task.data.completed}
-              title={task.data.title} 
-              description={task.data.description}
+              key={index}
+              completed={false}
+              title={task.title} 
+              description={task.description}
             />
           ))}
         </div>
