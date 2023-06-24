@@ -1,7 +1,7 @@
 import './task.css';
 import {useState} from 'react';
 import TaskItem from './TaskItem';
-import EditTask from './EditTask';
+import TaskForm from './TaskForm';
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import {db} from './firebase';
 
@@ -79,12 +79,12 @@ function Task({id, title, description, completed}) {
       }
 
       {open.edit &&
-        <EditTask 
-          onClose={handleClose} 
-          toEditTitle={title} 
-          toEditDescription={description} 
+        <TaskForm 
           open={open.edit}
-          id={id} />
+          onClose={handleClose}
+          id={id}
+          toEditTitle={title} 
+          toEditDescription={description}/>
       }
 
     </div>
